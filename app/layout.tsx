@@ -6,6 +6,7 @@ import "./globals.css";
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import { Authenticated, AuthLoading } from "convex/react";
 import LoadingLogo from "@/components/shared/LoadingLogo";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 
 const geistSans = Geist({
@@ -34,7 +35,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ConvexClientProvider>
-          {children}
+          <TooltipProvider>{children}</TooltipProvider>
         </ConvexClientProvider>
       </body>
     </html>
