@@ -10,15 +10,15 @@ import Link from 'next/dist/client/link';
 import React from 'react'
 
 
-const DesktopNav = () => {
+const MobileNav = () => {
     const paths = useNavigation();
 
+    console.log("Mobile nav is being rendered..");
+
     return (
-        <Card className='hidden lg:flex
-        lg: flex-col lg: justify-between
-        lg: items-center lg: h-full lg: w-16 lg: px-2 lg: py-4'>
-            <nav>
-                <ul className='flex flex-col items-center gap-4'>
+        <Card className='fixed bottom-4 w-[calc(100vw-32px)] flex items-center h-16 p-2 lg:hidden'>
+            <nav className='w-full'>
+                <ul className='flex justify-evenly items-center'>
                     {
                         paths.map((path, id) => {
                             return(
@@ -39,12 +39,12 @@ const DesktopNav = () => {
                             )
                         })
                     }
+            <li><UserButton/></li>
                 </ul>
             </nav>
-            <div className='flex flex-col items-center gap-4'><UserButton/></div>
         </Card>
     )
 
 }
 
-export default DesktopNav
+export default MobileNav
