@@ -7,6 +7,7 @@ import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import { Authenticated, AuthLoading } from "convex/react";
 import LoadingLogo from "@/components/shared/LoadingLogo";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/components/ui/theme/theme-provider";
 
 
 const geistSans = Geist({
@@ -34,9 +35,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange>
         <ConvexClientProvider>
           <TooltipProvider>{children}</TooltipProvider>
         </ConvexClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

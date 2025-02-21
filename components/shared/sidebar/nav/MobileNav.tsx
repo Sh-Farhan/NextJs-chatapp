@@ -2,7 +2,9 @@
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { ThemeToggle } from '@/components/ui/theme/theme-toggle';
 import { TooltipTrigger } from '@/components/ui/tooltip';
+import { useConversation } from '@/hooks/useConversation';
 import { useNavigation } from '@/hooks/useNavigation'
 import { UserButton } from '@clerk/nextjs';
 import { Tooltip, TooltipContent } from '@radix-ui/react-tooltip';
@@ -12,6 +14,10 @@ import React from 'react'
 
 const MobileNav = () => {
     const paths = useNavigation();
+
+    const {isActive} = useConversation()
+
+    if(isActive) return null;
 
     console.log("Mobile nav is being rendered..");
 
@@ -39,6 +45,7 @@ const MobileNav = () => {
                             )
                         })
                     }
+            <li><ThemeToggle/></li>
             <li><UserButton/></li>
                 </ul>
             </nav>
