@@ -1,4 +1,3 @@
-// "use client"
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -35,7 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
+         <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
@@ -43,7 +42,10 @@ export default function RootLayout({
         <ConvexClientProvider>
           <TooltipProvider>{children}</TooltipProvider>
         </ConvexClientProvider>
-        </ThemeProvider>
+        </ThemeProvider> 
+              {/* <ConvexClientProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </ConvexClientProvider> */}
       </body>
     </html>
   );

@@ -14,6 +14,8 @@ import React from 'react'
 const DesktopNav = () => {
     const paths = useNavigation();
 
+    console.log("desktop nav...")
+
     return (
         <Card className='hidden lg:flex
         lg: flex-col lg: justify-between

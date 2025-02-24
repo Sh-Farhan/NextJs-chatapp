@@ -4,6 +4,7 @@ import React from 'react'
 type Props = {}
 
 const ConversationPage = (props: Props) => {
+  console.log("redering conversation page")
   return (
     <ConversationContainer>
       ConversationPage
