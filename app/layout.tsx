@@ -7,6 +7,7 @@ import { Authenticated, AuthLoading } from "convex/react";
 import LoadingLogo from "@/components/shared/LoadingLogo";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ui/theme/theme-provider";
+import { Toaster } from "sonner";
 
 
 const geistSans = Geist({
@@ -41,6 +42,7 @@ export default function RootLayout({
             disableTransitionOnChange>
         <ConvexClientProvider>
           <TooltipProvider>{children}</TooltipProvider>
+          <Toaster richColors/>
         </ConvexClientProvider>
         </ThemeProvider> 
               {/* <ConvexClientProvider>
