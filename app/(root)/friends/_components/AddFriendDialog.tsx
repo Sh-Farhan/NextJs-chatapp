@@ -99,7 +99,6 @@ const addFriendFormSchema = z.object({
 const AddFriendDialog = () => {
     const {mutate: createRequest, pending} = useMutationState(api.request.create);
 
-
   const form = useForm<z.infer<typeof addFriendFormSchema>>({
     resolver: zodResolver(addFriendFormSchema),
     defaultValues: {
@@ -114,6 +113,7 @@ const AddFriendDialog = () => {
         toast.success("Friend request sent!");
     })
     .catch(error => {
+        console.log(error);
         toast.error(error instanceof ConvexError ? error.data : "Unexpected error occured");
     });
   };
