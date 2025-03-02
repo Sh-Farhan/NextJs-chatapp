@@ -1,20 +1,22 @@
 "use client"
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme/theme-toggle';
-import { TooltipTrigger } from '@/components/ui/tooltip';
+import { TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useNavigation } from '@/hooks/useNavigation'
 import { UserButton } from '@clerk/nextjs';
-import { Tooltip, TooltipContent } from '@radix-ui/react-tooltip';
+// import { Tooltip, TooltipContent } from '@radix-ui/react-tooltip';
 import Link from 'next/dist/client/link';
 import React from 'react'
+import { Tooltip } from '@/components/ui/tooltip';
 
 
 const DesktopNav = () => {
     const paths = useNavigation();
 
-    console.log("desktop nav...")
+    // console.log("desktop nav...")
 
     return (
         <Card className='hidden lg:flex
@@ -29,14 +31,21 @@ const DesktopNav = () => {
                                 <Link href={path.href}>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
+                                    <div>
                                         <Button size="icon" variant={path.active ? "default" : "outline"}>
                                             {path.icon}
                                         </Button>
+                                        {
+                                            path.count ? 
+                                            (<Badge className='absolute left-6 bottom-7 px-2'>{path.count}</Badge>) : null
+                                            
+                                        }
+                                        </div>    
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p>{path.name}</p>
                                     </TooltipContent>
-                                </Tooltip>
+                                </Tooltip>  
                                 </Link>
                             </li>
                             )
@@ -54,3 +63,4 @@ const DesktopNav = () => {
 }
 
 export default DesktopNav
+
