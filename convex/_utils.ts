@@ -9,6 +9,6 @@ export const getUserByClerkId = async ({
 }) => {
     return await ctx.db
     .query("users")
-    .withIndex("by_clerkId", q => q.eq("clerkId", clerkId))
+    .withIndex("by_clerkId", (q) => q.eq("clerkId", clerkId))
     .unique();
 }  
