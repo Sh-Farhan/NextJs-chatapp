@@ -38,7 +38,7 @@ export default defineSchema({
         conversationId: v.id("conversations"),
         lastSeenMessage: v.optional(v.id("messages")),
     })
-    .index("by_member", ["memberId"])
+    .index("by_memberId", ["memberId"])
     .index("by_conversationId", ["conversationId"])
     .index("by_memberId_conversationId", ["memberId", "conversationId"]),
 
