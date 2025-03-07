@@ -36,4 +36,6 @@ handler: async(ctx, args) => {
             return {conversation, otherMember}
         }
     }));
+
+    return conversationsWithDetails
 }});
