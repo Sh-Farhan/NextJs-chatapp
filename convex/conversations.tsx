@@ -27,7 +27,7 @@ handler: async(ctx, args) => {
         const allConversationMemberships = await ctx.db.query("conversationMembers")
         .withIndex("by_conversationId", (q) => q.eq("conversationId", conversation?._id)).collect();
 
-        if(!conversation.isGroup) return {conversation}
+        if(conversation.isGroup) return {conversation}
         else{
             const otherMembership = allConversationMemberships.filter((membership) => membership.memberId !== currentUser._id)[0];
 
