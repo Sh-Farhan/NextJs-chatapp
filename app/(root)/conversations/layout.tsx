@@ -4,7 +4,7 @@ import { api } from '@/convex/_generated/api'
 import { useQuery } from 'convex/react'
 import { Loader2 } from 'lucide-react'
 import React from 'react'
-import DMConversationItem from './[conversationId]/_components/DMConversationItem'
+import DMConversationItem from './_components/DMConversationItem'
 
 type Props = React.PropsWithChildren<{}>
 
