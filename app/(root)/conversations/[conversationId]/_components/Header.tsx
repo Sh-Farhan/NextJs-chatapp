@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card } from '@/components/ui/card'
 import { CircleArrowLeft } from 'lucide-react'
 import Link from 'next/link'
@@ -15,6 +16,11 @@ const Header = ({imageUrl, name}: Props) => {
             <Link href="/conversations" className='block lg:hidden'>
             <CircleArrowLeft/>
             </Link>
+            <Avatar className='h-8 w-8'>
+              <AvatarImage src={imageUrl}/>
+                <AvatarFallback>{name.substring(0,1)}</AvatarFallback>
+              {/* </AvatarImage> */}
+            </Avatar>
         </div>
     </Card>
   )
