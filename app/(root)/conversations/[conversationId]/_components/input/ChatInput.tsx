@@ -1,10 +1,13 @@
+import { Card } from '@/components/ui/card'
 import React from 'react'
 
 type Props = {}
 
 const ChatInput = (props: Props) => {
   return (
-    <div>chatInput</div>
+    <Card className='w-full p-2 rounded-lg relative'>
+      Chat Input
+    </Card>
   )
 }
 

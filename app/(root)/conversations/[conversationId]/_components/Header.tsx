@@ -21,6 +21,7 @@ const Header = ({imageUrl, name}: Props) => {
                 <AvatarFallback>{name.substring(0,1)}</AvatarFallback>
               {/* </AvatarImage> */}
             </Avatar>
+            <h2 className='font-semibold'>{name}</h2>
         </div>
     </Card>
   )
