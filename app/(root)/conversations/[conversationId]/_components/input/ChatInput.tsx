@@ -1,7 +1,7 @@
 "use client"
 
 import { Card } from '@/components/ui/card'
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { api } from '@/convex/_generated/api'
 import { useConversation } from '@/hooks/useConversation'
 import { useMutationState } from '@/hooks/useMutationState'
@@ -33,6 +33,12 @@ const ChatInput = () => {
     },
   });
 
+  const handleInputChange = async(event: any) => {
+    const {value, selectionStart} = event.target;
+
+    if(selectionStart !== null) form.setValue("content", value)
+  } 
+
   const handleSubmit = async(values: z.infer<typeof chatMessageSchema>) => {
     createMessage({
       conversationId,
@@ -50,12 +56,25 @@ const ChatInput = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className='flex gap-2 items-end w-full'>
             <FormField control={form.control} name='content' render={({field}) => {
-              <FormItem className='h-full w-full'>
-                <FormControl><TextareaAutosize 
+              return <FormItem className='h-full w-full'>
+                <FormControl>
+                  <TextareaAutosize 
+                onKeyDown={async e => {
+                  if(e.key === "Enter" && !e.shiftKey){
+                    e.preventDefault();
+                    await form.handleSubmit(handleSubmit)()
+                  }
+                }}
                 rows={1}
                 maxRows={3}
-                {... field} onChange={handleInputChange}
-                onClick={handleInputChange}/></FormControl>
+                {... field}
+                onChange={handleInputChange}
+                onClick={handleInputChange}
+                placeholder='Type a message...'
+                className='min-h-full w-full resize-none border-0 outline-0 bg-card text-card-foreground
+                placeholer:text-mute divide-foreground p-1.5'/>
+                </FormControl>
+                <FormMessage/>
               </FormItem>
             }}></FormField>
           </form>
