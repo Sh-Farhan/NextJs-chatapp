@@ -12,7 +12,7 @@ const ConversationsLayout = ({children}: Props) => {
 
   const conversations = useQuery(api.conversations.get);
 
-  console.log(conversations)
+  console.log("conversations is ...", conversations)
 
   return (
     <>
@@ -27,7 +27,9 @@ const ConversationsLayout = ({children}: Props) => {
           username={conversations.otherMember?.
             username || ""
           }
-          imageUrl={conversations.otherMember?.imageUrl || " "}/>
+          imageUrl={conversations.otherMember?.imageUrl || " "}
+          lastMessageContent={conversations.lastMessage?.content}
+          lastMessageSender={conversations.lastMessage?.sender}/>
         }) :
         <Loader2/>
       }
