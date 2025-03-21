@@ -59,7 +59,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { Loader2 } from "lucide-react";
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import Header from "./_components/Header";
 import Body from "./_components/body/body";
 import ChatInput from "./_components/input/ChatInput";
@@ -76,6 +76,10 @@ const ConversationPage = ({ params }: Props) => {
 
   // ✅ Fetch conversation data
   const conversation = useQuery(api.conversation.get, { id: conversationId });
+
+  const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
+  const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
+
 
   // ✅ Handle loading, errors, and success states
   if (conversation === undefined)
@@ -101,6 +105,7 @@ const ConversationPage = ({ params }: Props) => {
             : conversation.otherMember.username) || ""
         }
         imageUrl={conversation.isGroup ? undefined : conversation.otherMember.imageUrl}
+        options={conversation.isGroup ? [] : []}
       />
       <Body />
       <ChatInput />
