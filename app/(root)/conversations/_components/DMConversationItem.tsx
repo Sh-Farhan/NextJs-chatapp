@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { Id } from '@/convex/_generated/dataModel';
 import { User } from 'lucide-react';
-// import { AvatarImage } from '@radix-ui/react-avatar';
 import Link from 'next/link';
 import React from 'react'
 
@@ -14,9 +13,6 @@ type Props = {
     lastMessageContent?: string
 }
 
-const myComp = () => {
-    return <p>Hello world</p>
-}
 
 const DMConversationItem = ({id, imageUrl, username, lastMessageSender, lastMessageContent}: Props) => {
     console.log(`username is ${username}`)

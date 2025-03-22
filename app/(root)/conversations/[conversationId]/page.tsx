@@ -79,6 +79,8 @@ const ConversationPage = ({ params }: Props) => {
 
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
+  const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = useState(false);
+  const [callType, setCallType] = useState<"audio" | "video" | null>(null);
 
 
   // ✅ Handle loading, errors, and success states
@@ -105,7 +107,25 @@ const ConversationPage = ({ params }: Props) => {
             : conversation.otherMember.username) || ""
         }
         imageUrl={conversation.isGroup ? undefined : conversation.otherMember.imageUrl}
-        options={conversation.isGroup ? [] : []}
+        options={conversation.isGroup ? [
+          {
+            label: "Leave Group",
+            destructive: false,
+            onClick: () => setLeaveGroupDialogOpen(true),
+          },
+          {
+            label: "Delete Group",
+            destructive: true,
+            onClick: () => setDeleteGroupDialogOpen(true),
+          },
+        ] : [
+          {
+            label: "Remove friend",
+            destructive: true,
+            onClick: () => setRemoveFriendDialogOpen(true),
+          },
+        ]
+      }
       />
       <Body />
       <ChatInput />
