@@ -51,31 +51,31 @@ handler: async(ctx, args) => {
 //         })
 //     }
 // })
-export const createGroup = mutation({
-    args: {
-      members: v.array(v.id("users")),
-      name: v.string(),
-    },
-    handler: async (ctx, args) => {
-      const identity = await ctx.auth.getUserIdentity();
-      if (!identity) throw new Error("Unauthorized");
+// export const createGroup = mutation({
+//     args: {
+//       members: v.array(v.id("users")),
+//       name: v.string(),
+//     },
+//     handler: async (ctx, args) => {
+//       const identity = await ctx.auth.getUserIdentity();
+//       if (!identity) throw new Error("Unauthorized");
   
-      const currentUser = await getUserByClerkId({ ctx, clerkId: identity.subject });
-      if(!currentUser) throw new ConvexError("User not found");
+//       const currentUser = await getUserByClerkId({ ctx, clerkId: identity.subject });
+//       if(!currentUser) throw new ConvexError("User not found");
   
-      const conversationId = await ctx.db.insert("conversations", {
-        isGroup: true,
-        name: args.name,
-      });
+//       const conversationId = await ctx.db.insert("conversations", {
+//         isGroup: true,
+//         name: args.name,
+//       });
   
-      await Promise.all(
-        [...args.members, currentUser._id].map(async (memberId) => {
-          await ctx.db.insert("conversationMembers", {
-            memberId,
-            conversationId, // ✅ Fixed spelling mistake here
-          });
-        })
-      );
-    },
-  });
+//       await Promise.all(
+//         [...args.members, currentUser._id].map(async (memberId) => {
+//           await ctx.db.insert("conversationMembers", {
+//             memberId,
+//             conversationId, // ✅ Fixed spelling mistake here
+//           });
+//         })
+//       );
+//     },
+//   });
   
