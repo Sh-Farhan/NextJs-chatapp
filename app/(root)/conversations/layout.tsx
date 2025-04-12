@@ -5,6 +5,7 @@ import { useQuery } from 'convex/react'
 import { Loader2 } from 'lucide-react'
 import React from 'react'
 import DMConversationItem from './_components/DMConversationItem'
+import CreateGroupDialog from './_components/CreateGroupDialog'
 
 type Props = React.PropsWithChildren<{}>
 
@@ -16,7 +17,7 @@ const ConversationsLayout = ({children}: Props) => {
 
   return (
     <>
-    <ItemList title="Conversations">
+    <ItemList title="Conversations" action={<CreateGroupDialog/>}>
       {/* Conversations Page */}
       {
         conversations ? conversations.length === 0 ? <p className='w-full
