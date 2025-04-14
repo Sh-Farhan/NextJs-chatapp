@@ -1,13 +1,17 @@
 "use client"
 
 import { Button } from '@/components/ui/button'
-import { Dialog } from '@/components/ui/dialog'
-import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip'
+import { Dialog, DialogDescription, DialogHeader, DialogTitle,DialogContent,DialogTrigger } from '@/components/ui/dialog'
+import { DropdownMenu, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { api } from '@/convex/_generated/api'
 import { useMutationState } from '@/hooks/useMutationState'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { DialogTrigger } from '@radix-ui/react-dialog'
+// import { DialogContent, DialogTrigger } from '@radix-ui/react-dialog'
 import { useQuery } from 'convex/react'
+import { ConvexError } from 'convex/values'
 import { CirclePlus } from 'lucide-react'
 import React, { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
@@ -61,14 +65,51 @@ const CreateGroupDialog = (props: Props) => {
   return (
     <Dialog>
       <Tooltip>
-        <TooltipTrigger>
-          <Button size="icon" variant="outline">
+        <TooltipTrigger asChild>
             <DialogTrigger asChild>
+          <Button size="icon" variant="outline">
               <CirclePlus/>
-            </DialogTrigger>
           </Button>
+            </DialogTrigger>
         </TooltipTrigger>
+
+        <TooltipContent>
+          <p>Create group</p>
+        </TooltipContent>
       </Tooltip>
+
+      <DialogContent className='block'>
+        <DialogHeader>
+          <DialogTitle>Create group</DialogTitle>
+          <DialogDescription>Add your friends to get started</DialogDescription>
+        </DialogHeader>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-8'>
+            <FormField control={form.control} name="name" render=
+            {({field}) => {
+              return <FormItem>
+                <FormLabel>Name</FormLabel>
+                <Input placeholder='Group name...' {...field}></Input>
+              </FormItem>
+            }}>
+            </FormField>
+
+            <FormField control={form.control} name="members" render=
+            {() => {
+              return <FormItem>
+                <FormLabel>Friends</FormLabel>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild disabled={unselectedFriends.length === 0}>
+                    <Button className='w-full' variant="outline">Select</Button>
+                  </DropdownMenuTrigger>
+                </DropdownMenu>
+              </FormItem>
+            }}>
+            </FormField>
+          </form>
+        </Form>
+      </DialogContent>
     </Dialog>
   )
 }
