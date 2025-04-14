@@ -1,11 +1,17 @@
 "use client"
 
+import { Button } from '@/components/ui/button'
+import { Dialog } from '@/components/ui/dialog'
+import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip'
 import { api } from '@/convex/_generated/api'
 import { useMutationState } from '@/hooks/useMutationState'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { DialogTrigger } from '@radix-ui/react-dialog'
 import { useQuery } from 'convex/react'
+import { CirclePlus } from 'lucide-react'
 import React, { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 type Props = {}
@@ -42,9 +48,28 @@ const CreateGroupDialog = (props: Props) => {
 
     const unselectedFriends = useMemo(() => {
         return friends ? friends.filter(friend => !members.includes(friend._id)) : []
-    }, [members.length, friends?.length])
+    }, [members.length, friends?.length]);
+
+    const handleSubmit = async (values: z.infer<typeof createGroupFormSchema>) => {
+      await createGroup({name: values.name, members: values.members}).then(() => {
+        form.reset();
+        toast.success("Group created");
+      }).catch(error => {
+        toast.error(error instanceof ConvexError ? error.data : "Unexpected error");
+      })
+    }
   return (
-    <div>CreateGroupDialog</div>
+    <Dialog>
+      <Tooltip>
+        <TooltipTrigger>
+          <Button size="icon" variant="outline">
+            <DialogTrigger asChild>
+              <CirclePlus/>
+            </DialogTrigger>
+          </Button>
+        </TooltipTrigger>
+      </Tooltip>
+    </Dialog>
   )
 }
 
