@@ -1,8 +1,10 @@
 "use client"
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { Dialog, DialogDescription, DialogHeader, DialogTitle,DialogContent,DialogTrigger } from '@/components/ui/dialog'
-import { DropdownMenu, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -12,7 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 // import { DialogContent, DialogTrigger } from '@radix-ui/react-dialog'
 import { useQuery } from 'convex/react'
 import { ConvexError } from 'convex/values'
-import { CirclePlus } from 'lucide-react'
+import { CirclePlus, X } from 'lucide-react'
 import React, { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -22,6 +24,8 @@ type Props = {}
 type Friend = {
     _id: string;
     name: string;
+    imageUrl: string;
+    username: string;
   };
   
 
@@ -103,10 +107,68 @@ const CreateGroupDialog = (props: Props) => {
                   <DropdownMenuTrigger asChild disabled={unselectedFriends.length === 0}>
                     <Button className='w-full' variant="outline">Select</Button>
                   </DropdownMenuTrigger>
+
+                  <DropdownMenuContent className="w-full">
+                    {
+                      unselectedFriends.map(friend => {
+                        return(
+                          <DropdownMenuCheckboxItem
+                          key={friend._id}
+                          className='flex items-center gap-2 w-full p-2'
+                          onCheckedChange={checked => {
+                            if(checked){
+                              form.setValue("members", [...members,friend._id])
+                            }
+                          }}>
+                            <Avatar className='w-8 h-8'>
+                              <AvatarImage src={friend.imageUrl}/>
+                              <AvatarFallback>
+                                {
+                                  friend.username.substring(0,1)
+                                }
+                              </AvatarFallback>
+                            </Avatar>
+
+                            <h4 className='truncate'>{friend.username}  </h4>
+                          </DropdownMenuCheckboxItem>
+                        );
+                      })
+                    }
+                  </DropdownMenuContent>
                 </DropdownMenu>
               </FormItem>
-            }}>
-            </FormField>
+            }}/>
+            {/* </FormField> */}
+            {
+              members && members.length ?
+              <Card className='flex items-center gap-3 overflow-x-auto w-full h-24 p-2 no-scrollbar'>
+                {
+                  friends?.filter(friend => members.includes(friend._id))
+                  .map(friend => {
+                    return(
+                      <div key={friend._id} className='flex flex-col items-center gap-1'>
+                        <div className='relative'>
+                          <Avatar>
+                          <AvatarImage src={friend.imageUrl}/>
+                              <AvatarFallback>
+                                {
+                                  friend.username.substring(0,1)
+                                }
+                              </AvatarFallback>
+                          </Avatar>
+
+                          <X className='text-muted-foreground w-4 h-4
+                          absolute bottom-8 left-7bg-muted
+                          rounded-full cursor-pointer'/>
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </Card>
+              :
+              null
+            }
           </form>
         </Form>
       </DialogContent>
