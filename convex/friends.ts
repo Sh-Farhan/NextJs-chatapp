@@ -25,6 +25,8 @@ handler: async(ctx, args) => {
 
         return friend
     }))
+
+    return friends;
 }});
 
 // export const createGroup = mutation({
