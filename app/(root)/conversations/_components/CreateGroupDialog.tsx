@@ -246,7 +246,8 @@ const createGroupFormSchema = z.object({
 });
 
 const CreateGroupDialog = () => {
-  const friends = useQuery(api.friends.get) as Friend[] | undefined;
+  const friends = useQuery(api.friends.get);
+  // const friends = useQuery(api.friends.get) as Friend[] | undefined;
   console.log("friends array is ...",friends)
 
   const { mutate: createGroup, pending } = useMutationState(api.conversation.createGroup);
