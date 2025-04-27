@@ -13,7 +13,6 @@ type Props = {
     lastMessageContent?: string
 }
 
-
 const DMConversationItem = ({id, imageUrl, username, lastMessageSender, lastMessageContent}: Props) => {
     console.log(`username is ${username}`)
   return (

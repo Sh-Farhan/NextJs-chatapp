@@ -17,13 +17,20 @@ handler: async(ctx, args) => {
     const conversationMemberships = await ctx.db.query("conversationMembers")
     .withIndex("by_memberId", q => q.eq("memberId", currentUser._id)).collect();
 
-    const conversations = await Promise.all(conversationMemberships?.map(async membership => {
-        const conversation = await ctx.db.get(membership.conversationId);
+    // const conversations = await Promise.all(conversationMemberships?.map(async membership => {
+    //     const conversation = await ctx.db.get(membership.conversationId);
 
-        if(!conversation) throw new ConvexError("Conversation could not be found");
+    //     if(!conversation) {throw new ConvexError("Conversation could not be found");}
 
-        return conversation;
-    }));
+    //     return conversation;
+    // }));
+    const conversations = (
+        await Promise.all(conversationMemberships.map(async (membership) => {
+          const conversation = await ctx.db.get(membership.conversationId);
+          return conversation ?? null; // No error if missing
+        }))
+      ).filter((c): c is NonNullable<typeof c> => c !== null); // Remove missing ones
+      
 
     const conversationsWithDetails = await Promise.all(conversations.map(async(conversation, index) => {
         const allConversationMemberships = await ctx.db.query("conversationMembers")
