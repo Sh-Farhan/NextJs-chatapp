@@ -65,6 +65,7 @@ import Body from "./_components/body/body";
 import ChatInput from "./_components/input/ChatInput";
 import RemoveFriendDialog from "./_components/dialogs/RemoveFriendDialog";
 import { remove } from "@/convex/friend";
+import DeleteGroupDialog from "./_components/dialogs/DeleteGroupDialog";
 
 type Props = {
   params: Promise<{
@@ -105,7 +106,13 @@ const ConversationPage = ({ params }: Props) => {
       <RemoveFriendDialog
        conversationId={conversationId} 
        open={removeFriendDialogOpen}
-       setOpen={setRemoveFriendDialogOpen}></RemoveFriendDialog>
+       setOpen={setRemoveFriendDialogOpen}
+       />
+      <DeleteGroupDialog
+       conversationId={conversationId} 
+       open={deleteGroupDialogOpen}
+       setOpen={setDeleteGroupDialogOpen}
+       />
       <Header
         name={
           (conversation.isGroup
