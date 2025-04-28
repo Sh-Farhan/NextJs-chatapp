@@ -95,7 +95,7 @@ const Message = ({
       >
         {type === "text" &&
           content.map((line, index) => (
-            <p key={index} className="break-words whitespace-pre-wrap text-sm">
+            <p key={index} className="break-words whitespace-pre-wrap text-sm break-all">
               {line}
             </p>
           ))}
