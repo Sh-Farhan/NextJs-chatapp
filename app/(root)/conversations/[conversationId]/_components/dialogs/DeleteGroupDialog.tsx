@@ -1,5 +1,3 @@
-
-
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogAction } from '@/components/ui/alert-dialog';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
@@ -10,7 +8,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { toast } from 'sonner';
 
 type Props = {
-    conversationId: Id<"conversations">;
+    conversationId: Id<"conversations">;  
     open: boolean,
     setOpen: Dispatch<SetStateAction<boolean>>
 }
