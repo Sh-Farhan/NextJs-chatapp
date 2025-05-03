@@ -62,6 +62,7 @@ type MessageProps = {
   lastByUser: boolean;
   content: string[];
   createdAt: number;
+  seen?: React.ReactNode;
   type: string;
 };
 
@@ -75,6 +76,7 @@ const Message = ({
   lastByUser,
   content,
   createdAt,
+  seen,
   type,
 }: MessageProps) => {
   return (
@@ -102,6 +104,11 @@ const Message = ({
         
         {/* Timestamp */}
         <p className={cn("text-xs mt-1", fromCurrentUser ? "text-white" : "text-gray-500")}>{formatTime(createdAt)}</p>
+
+          {/* Seen indicator */}
+          {fromCurrentUser && lastByUser && seen && (
+            <span className="text-xs">{seen}</span>
+          )}
       </div>
 
       {/* Show sender's avatar on the right if it's from the current user */}
