@@ -18,7 +18,7 @@ type Props = {
   }[]
 }
 
-const body = ({members}: Props) => {
+const Body = ({members}: Props) => {
   const {conversationId} = useConversation();
 
   const messages = useQuery(api.messages.get, {
@@ -94,4 +94,4 @@ const body = ({members}: Props) => {
   )
 }
 
-export default body
+export default Body;
