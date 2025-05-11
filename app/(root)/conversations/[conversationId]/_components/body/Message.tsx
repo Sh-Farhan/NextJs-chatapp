@@ -1,6 +1,7 @@
 // import React from 'react'
 // import {format} from 'date-fns'
 // import { cn } from '@/lib/utils';
+// import { Avatar } from '@/components/ui/avatar';
 
 // type Props = {
 //     fromCurrentUser: boolean;
@@ -32,11 +33,21 @@
 //         "order-1 items-end": fromCurrentUser,
 //         "order-2 items-start": !fromCurrentUser
 //       })}>
+// {/* 
 //         <div className={cn("px-4 py-2 rounded-lg max-w-[70%]", {
 //           "bg-primary text-primary-foreground": !fromCurrentUser,
 //           "rounded-br-none": !lastByUser && fromCurrentUser,
 //           "rounded-bl-none": !lastByUser && !fromCurrentUser
-//         })}>
+//         })}> */}
+//               <div
+//         className={cn(
+//           "flex flex-col max-w-[70%] px-4 py-2 rounded-lg shadow-md",
+//           fromCurrentUser
+//             ? "bg-green-500 text-white rounded-br-none items-end"
+//             : "bg-gray-200 text-gray-800 rounded-bl-none items-start"
+//         )}
+//       >
+
 //           {type === "text" ? <p className='text-wrap break-words whitespace-pre-wrap'>{content}</p> : null}
 //           <p className={cn("text-xs flex w-full my-1",{
 //             "text-primary-foreground justify-end": fromCurrentUser,
@@ -45,6 +56,9 @@
 //           )}>{formatTime(createdAt)}</p>
 //         </div>
 //       </div>
+
+//       <Avatar>
+//       </Avatar>
 //     </div>
 //   ) 
 // }
@@ -53,6 +67,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { currentUser } from '@clerk/nextjs/server';
 
 // Define the prop types for clarity
 type MessageProps = {
@@ -79,6 +94,7 @@ const Message = ({
   seen,
   type,
 }: MessageProps) => {
+  // console.log( fromCurrentUser,seen,lastByUser);
   return (
     <div className={cn("flex items-end", fromCurrentUser ? "justify-end" : "justify-start")}>      
       {/* Avatar */}
