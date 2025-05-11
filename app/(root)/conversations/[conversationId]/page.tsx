@@ -61,7 +61,7 @@ import { useQuery } from "convex/react";
 import { Loader2 } from "lucide-react";
 import React, { use, useState } from "react";
 import Header from "./_components/Header";
-import Body from "./_components/body/body";\
+import Body from "./_components/body/body"
 
 import ChatInput from "./_components/input/ChatInput";
 import RemoveFriendDialog from "./_components/dialogs/RemoveFriendDialog";
